@@ -18,11 +18,15 @@ jobs:
         with:
           python-version: '3.9' 
       - run: pip install pytest flask-testing
-
-
-
       - name: Unit test
         run: pytest
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v2.3.0  # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+
       - name: Build Image
         run: docker build -t 1askat9/python-app1:1.0.0 .
 
@@ -31,9 +35,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}  
-
-
-         
+    
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
