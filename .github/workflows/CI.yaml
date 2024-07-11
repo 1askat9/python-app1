@@ -13,7 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-    
+      - name: Unit test
+        run: pytest
       - name: Build Image
         run: docker build -t 1askat9/python-app1:1.0.0 .
 
