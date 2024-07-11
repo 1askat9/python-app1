@@ -24,5 +24,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}  
 
 
-      - name: Push image
-        run: docker push 1askat9/python-app1:1.0.0           
+         
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-app1:1.0.0 
